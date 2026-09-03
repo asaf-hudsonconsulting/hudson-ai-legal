@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Request an apartment showing — Team Soha</title>
+<style>body{font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;max-width:720px;margin:40px auto;padding:0 20px;line-height:1.55;color:#222}
+h1{font-size:1.55rem;margin-bottom:.2em}.sub{color:#555;margin-top:0}
+label{display:block;margin:14px 0 4px;font-weight:600;font-size:.95rem}
+input[type=text],input[type=tel],input[type=email],select{width:100%;padding:10px;font-size:1rem;border:1px solid #bbb;border-radius:6px;box-sizing:border-box}
+.consent{margin:22px 0;padding:14px;border:1px solid #ccc;border-radius:6px;background:#fafafa;display:flex;gap:10px;align-items:flex-start}
+.consent input{margin-top:4px;flex:0 0 auto;width:18px;height:18px}
+.consent span{font-size:.88rem;color:#333}
+button{background:#1a56db;color:#fff;border:0;padding:12px 22px;font-size:1rem;border-radius:6px;cursor:pointer}
+button:disabled{background:#9bb0e0;cursor:not-allowed}
+footer{margin-top:2.4em;font-size:.87rem;color:#666}#ok{display:none;padding:14px;background:#e7f6ec;border:1px solid #9ad4ae;border-radius:6px;margin-top:16px}
+.note{font-size:.85rem;color:#666;margin-top:6px}</style></head><body>
+<h1>Request an apartment showing</h1>
+<p class="sub">Park West, 1700 Park Avenue, Weehawken, New Jersey. Showings run Monday to Friday, 2:00 to 6:00 PM.</p>
+<p>Team Soha is a licensed real estate team at Compass in Hudson County, New Jersey. Fill in the form below and Soha's scheduling assistant will contact you to arrange a 30-minute showing of the apartment you choose.</p>
+<form id="f">
+<label for="first_name">First name</label><input id="first_name" name="first_name" type="text" required autocomplete="given-name">
+<label for="last_name">Last name</label><input id="last_name" name="last_name" type="text" required autocomplete="family-name">
+<label for="phone">Mobile phone number</label><input id="phone" name="phone" type="tel" required placeholder="(201) 555-0123" autocomplete="tel">
+<label for="email">Email address</label><input id="email" name="email" type="email" required autocomplete="email">
+<label for="unit">Which apartment?</label>
+<select id="unit" name="unit" required><option value="">Please choose</option>
+<option value="810">Unit 810 — 2 bedroom, 2 bath — $4,100 / month</option>
+<option value="603">Unit 603 — 1 bedroom, 1 bath — $3,100 / month</option></select>
+<label for="preferred">Preferred day and time (optional)</label><input id="preferred" name="preferred" type="text" placeholder="e.g. Thursday afternoon">
+<div class="consent"><input type="checkbox" id="consent" name="consent" value="true">
+<span><b>Consent to calls and texts.</b> I agree that Team Soha / Hudson AI Consulting LLC may contact me at the mobile number I entered above about this showing request, by text message and by phone call, including calls placed by their automated AI scheduling assistant. Texts include a showing confirmation, up to three qualification questions (approximate credit score, combined annual income, pets), a reminder about one hour before the showing, and a cancellation notice. Message frequency varies, typically 2 to 5 messages per showing request. Message and data rates may apply. Reply STOP to opt out at any time or HELP for help. Consent is not a condition of renting an apartment or of any purchase. See our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">SMS Terms and Conditions</a>.</span></div>
+<p class="note">This box is not checked for you. Your request is only sent if you check it yourself.</p>
+<button id="b" type="submit" disabled>Request my showing</button>
+</form>
+<div id="ok"><b>Thank you.</b> Your showing request has been received. Soha's office will contact you at the number you provided.</div>
+<footer><b>Hudson AI Consulting LLC</b> on behalf of Team Soha (Compass)<br>
+513 Garden Street, Hoboken, NJ 07030 · <a href="mailto:asaf@hudsonconsulting.ai">asaf@hudsonconsulting.ai</a> · (201) 820-0700<br>
+<a href="index.html">Home</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">SMS Terms &amp; Conditions</a></footer>
+<script>
+var c=document.getElementById('consent'),b=document.getElementById('b');
+c.addEventListener('change',function(){b.disabled=!c.checked});
+document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();
+if(!c.checked){alert('Please check the consent box to send your request.');return}
+var d={};new FormData(e.target).forEach(function(v,k){d[k]=v});d.consent='true';
+b.disabled=true;b.textContent='Sending…';
+fetch('https://hook.us2.make.com/p79la18eir7kt8i6go7mje202cy9wohy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
+.then(function(){e.target.style.display='none';document.getElementById('ok').style.display='block'})
+.catch(function(){b.disabled=false;b.textContent='Request my showing';alert('Sorry, something went wrong. Please call (201) 820-0700.')})});
+</script></body></html>
